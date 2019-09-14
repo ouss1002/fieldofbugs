@@ -1,0 +1,140 @@
+@font-face{
+    /* Thanks to Style-7 for the font */
+    font-family:'digital-clock-font';
+    src: url('fonts/digital-7 (mono).ttf');
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+body > * {
+    user-select: none;
+}
+
+.stats-container {
+    font-family: digital-clock-font;
+    width: 75%;
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.leftDiv {
+    padding: 50px 10px 0px 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.rightDiv {
+    min-width: 95px;
+    width: 95px;
+    padding: 50px 10px 0px 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.icon {
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
+
+.icon:hover {
+    border-color: rgba(0, 102, 255, 0.75);
+}
+
+.leftDiv {
+    min-width: 114px;
+    width: 114px;
+    font-family: digital-clock-font;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.score > h1 {
+    margin: 0;
+}
+
+.timer > h2 {
+    margin: 0;
+}
+
+.collectibles {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.item-icon {
+    width: 30px;
+}
+
+.item-number {
+    font-size: 24pt;
+    font-weight: 900;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.btn-list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+.diff-btn {
+    width: 30px;
+    height: 30px;
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    border: none;
+    width: inherit;
+    height: inherit;
+    font-size: 16pt;
+    transition: background-color 0.25s 0s;
+    border-radius: 4px;
+    font-family: digital-clock-font;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: rgba(0, 102, 255, 1);
+}
+
+.stats-container > div {
+    font-size: 20pt;
+}
+
+.low-element > h1 {
+    font-size: 22pt;
+}
+
+.low-element .btn {
+    font-size: 24pt;
+}
+
+.bld {
+    font-weight: 900;
+}
