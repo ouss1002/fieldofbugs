@@ -31,21 +31,25 @@ var Engine = (function(global) {
     canvas.width = 909;
     canvas.height = 670;
 
+    // adding the appropriate classes
     leftDiv.classList.add('leftDiv');
     rightDiv.classList.add('rightDiv');
 
+    // the content of the right DIV (the icons for the player to change the avatar)
     rightDiv.innerHTML = '<div id="char-boy" class="icon"><img src="images/icon-boy.png" alt="boy icon"></div>'
     + '<div id="char-cat-girl" class="icon"><img src="images/icon-cat-girl.png" alt="cat girl icon"></div>'
     + '<div id="char-horn-girl" class="icon"><img src="images/icon-horn-girl.png" alt="horn girl icon"></div>'
     + '<div id="char-pink-girl" class="icon"><img src="images/icon-pink-girl.png" alt="pink girl icon"></div>'
     + '<div id="char-princess-girl" class="icon"><img src="images/icon-princess-girl.png" alt="princess girl icon"></div>';
 
+    // setting up the event listener to change the avatar upon clicking on one of the icons 
     rightDiv.querySelectorAll('.icon').forEach((element) => {
         element.addEventListener('click', () => {
             player.changeImage(`images/${element.id}.png`);
         });
     });
 
+    // content of the left DIV (score, timer, etc.)
     leftDiv.innerHTML = `
     <div class="score">
         <h1>Score</h1>
@@ -105,6 +109,7 @@ var Engine = (function(global) {
     </div>
     `;
 
+    // event listeners to change the difficulty
     leftDiv.querySelector('#up-diff').addEventListener('click', () => {
         Enemy.IncreaseSpeed();
     });
@@ -113,12 +118,15 @@ var Engine = (function(global) {
         Enemy.lowerSpeed();
     });
 
+    // appending the children (leftDiv, canvas, rightDiv) respectively
     doc.body.appendChild(leftDiv);
     doc.body.appendChild(canvas);
     doc.body.appendChild(rightDiv);
 
+    // this variable is for the low DIV (did we show it or not)
     let done = false;
 
+    // the function responsible for showing the low DIV after the game ends 
     function showLowDiv() {
         lowDiv.classList.add('stats-container');
 
@@ -127,6 +135,7 @@ var Engine = (function(global) {
         let numDeathsDiv = document.createElement('div');
         let restartDiv = document.createElement('div');
 
+        
         gameOverDiv.innerHTML = `
             <h1 class="bld">Game Over</h1>
         `;
@@ -148,23 +157,28 @@ var Engine = (function(global) {
             lowDiv.appendChild(ele);
         });
 
+        // restarting only refreshes the page 
         lowDiv.querySelector('#restart').addEventListener('click', () => {
             doc.location.reload(true);
         });
 
         let temp = timeLeft - performance.now() + timeStart;
 
+        // if the player won, we add a bonus for the time and hearts left  
         if(player.getKeys() > 4) {
             scoreValue += Math.round(temp / 10);
             scoreValue += player.getHearts() * 1000;
         }
 
+        // the player loses some score depending on how many times he died
         scoreValue -= player.getDeaths() * 500;
 
+        // the score is set to 0 if it is negative 
         if(scoreValue < 0) {
             scoreValue = 0;
         }
 
+        // we refresh the stats for the last time 
         lowDiv.querySelector('#over-score').innerHTML = scoreValue;
         lowDiv.querySelector('#num-deaths').innerHTML = player.getDeaths();
 
@@ -176,6 +190,7 @@ var Engine = (function(global) {
         doc.body.appendChild(lowDiv);
     }
 
+    // this function translates the score into a string to be printed in the upper left DIV container
     function translateScore(value) {
         if(value <= 0) {
             return "00000";
@@ -191,6 +206,7 @@ var Engine = (function(global) {
         return temp + str;
     }
     
+    // this function translates the time into a string to be printed in the left DIV container
     function translateTimer(ms) {
         let min,sec;
     
@@ -219,13 +235,12 @@ var Engine = (function(global) {
     
     timerElement = document.querySelector("#timer-value");
 
+    // updating the timer every 33 miliseconds
     function updateTimer() {
         let temp = timeLeft - performance.now() + timeStart;
 
         if(player.gameHasEnded()) {
             remainingTime = temp;
-            console.log(remainingTime);
-            console.log(temp);
 
             return ;
         }
@@ -297,9 +312,12 @@ var Engine = (function(global) {
         leftDiv.querySelector('#score-value').innerHTML = translateScore(scoreValue);
         if(!player.gameHasEnded()) {
             updateEntities(dt);
+            // i added this function too 
             checkCollisions();
         }
         else {
+            // if the low DIV is already shown (i can't stop the update function), 
+            // we skip this part
             if(!done) {
                 showLowDiv();
                 done = true;
@@ -319,20 +337,25 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         
+        // updating collectibles 
         allCollectibles.forEach((col) => {
             col.update(dt);
         });
 
+        // selector too 
         selector.update(dt);
 
+        // player too 
         player.update();
 
+        // updating the HTML part of the stats container 
         leftDiv.querySelector('#key-number').innerHTML = player.getKeys();
         leftDiv.querySelector('#heart-number').innerHTML = player.getHearts();
         leftDiv.querySelector('#star-number').innerHTML = player.getStars();
         leftDiv.querySelector('#gem-number').innerHTML = player.getGems();
     }
 
+    // checking collision with player 
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             enemy.checkCollisions();
@@ -355,6 +378,8 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
+
+        // i actually extended the size of the map 
         var rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 4 of stone
@@ -404,10 +429,12 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        // rendering collectibles too 
         allCollectibles.forEach((col) => {
             col.render();
         });
 
+        // selector too 
         selector.render();
 
         player.render();
@@ -425,6 +452,8 @@ var Engine = (function(global) {
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
      */
+
+    // i used practically everything 
     Resources.load([
         'images/stone-block.png',
         'images/water-block.png',
