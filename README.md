@@ -1,5 +1,5 @@
 # Field of Bugs
-*Field of Bugs* Release 1.0 is a game developed for *Udacity*.
+*Field of Bugs* Release 1.0.
 Check the folder `\OOP` for more info on the game OOP structure
 
 ## How to Play!
