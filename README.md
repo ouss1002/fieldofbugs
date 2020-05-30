@@ -1,7 +1,7 @@
 # Field of Bugs
 *Field of Bugs* Release 1.0.  
-Try the game on [Netlify](https://infallible-goldberg-5951ff.netlify.app/)  
-Check the folder `\OOP` for more info on the game OOP structure  
+Try the game on [Netlify](https://infallible-goldberg-5951ff.netlify.app/).  
+Check the folder `\OOP` for more info on the game OOP structure.  
 
 ## How to Play!
 
